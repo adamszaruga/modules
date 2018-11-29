@@ -14,12 +14,12 @@ Let's try some exercises to get us comfortable with require() statements. Each e
 
 1) Write an run a program that requires all 3 files in this folder. When you run your program, you should see 3 separate strings logged to the console.
 	- This should prove that your require() statments will execute the code within each file, one by one.
-2) Require 3 files that export different things. Console log them to see what the values are
-3) Require a file that exports an array. Loop through the array and log the elements.
-4) Require a file that exports a add function. Use that function to add the first two program arguments
-5) Require a file that exports a cat ascii and a file that exports a dog ascii. ALso, require a function that takes two arguments and randomly returns one of them. Use those three to write and run a file that will randomly return a dog or a cat
+2) Write and run a program that requires all 3 files in this folder. Have your program console.log() the values that get returned by each require() statement.
+3) Write and run a program that requires "array.js". "array.js" will provide an array to your program. Loop through the array and log its elements.
+4) Write and run a program that requires "add.js". "add.js" will provide a function that returns the sum of two parameters. Use that function to console log 1+1, 200+100, and 123 + 321;
+5) Write and run a program that requres "dog.js", "cat.js", and "randomValue.js". "dog.js" will provide your program with a picture of a dog. "cat.js" will provide your program with a picture of a cat. "randomValue.js" will provide your program with a function that takes two parameters and randomly returns one of them. Use these modules to randomly log a dog or cat to the console each time you run your program.
 
-See, modules aren't really that complicated! When a module is required, it will run its code and return some value. It's up to you what to do with that module.
+See, modules aren't really that complicated! When a module is required, it will run its code and return some value. It's up to you what to do with that value.
 
 ## Node's built in modules
 
@@ -77,7 +77,7 @@ console.log(foo); // "this is a value"
 ```
 
 1) Write a file that exports the number three. Write a file that exports the number five. Write a program that requires those files and console logs the sum of three and five
-2) Write a file that exports the string 'Hello'. Write another file that requires the 'Hello' file and appends ' World' to that value and exports it. Write a third file that requires the previous file and console logs its value. You should see "Hello World" logged in your console.
+2) Write a file named "hello.js" that exports the string 'Hello'. Write another file named "world.js" that requires "hello.js", appends ' World' to that value and exports the new string. Write a third file named "helloworld.js" that requires "world.js" and console logs its value. You should see "Hello World" logged in your console.
 3) Write a file named russianDoll.js that defines this variable below and exports it. Write another file that requires russianDoll.js and uses a loop that iterates through the doll, console logging every "value" along the way.
 ```
 var russionDoll = {
@@ -106,7 +106,7 @@ var foo = require('./file2.js);
 var foo = require('./file1.js);
 ```
 
-Node doesn't know how to handle this scenario! (When you run file1.js, the require statement will cause file2.js to run, which will cause file1.js to run again, which will cause file2.js to run again, etc...) This is called a circular dependency. 
+Node doesn't know how to handle this scenario! (When you run file1.js, the require statement will cause file2.js to run, which will cause file1.js to run again, which will cause file2.js to run again, etc...) This is called a circular dependency.  
 
 1) Write a file called one.js that requires two.js. Write a file called two.js that requires three.js. Write a file called three.js that requires one.js. Try to run one.js and see what happens!
 
