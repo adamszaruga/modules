@@ -58,6 +58,7 @@ module.exports = {
 	otherFoo: "otherBar"
 }
 
+// file4.js
 module.exports = function() {
 	return "someValue"
 }
@@ -76,8 +77,9 @@ console.log(foo); // "this is a value"
 ```
 
 1) Write a file that exports the number three. Write a file that exports the number five. Write a program that requires those files and console logs the sum of three and five
-2) Write a file that exports the string 'Hello'. Write another file that requires the 'Hello' file and exports 'Hello World'. Write a third file that requires the previous file and exports 'Hello World!'
-3) Write a file that defines this variable and exports it:
+2) Write a file that exports the string 'Hello'. Write another file that requires the 'Hello' file and appends ' World' to that value and exports it. Write a third file that requires the previous file and console logs its value. You should see "Hello World" logged in your console.
+3) Write a file named russianDoll.js that defines this variable and exports it:
+```
 var russionDoll = {
 	value: "Big Doll",
 	child: {
@@ -90,7 +92,8 @@ var russionDoll = {
 		}
 	}
 }
-Write a file that requires the russion doll, and iterates through it and logs the innermost value
+```
+Write a file that requires russianDoll.js. Write a loop that iterates through the doll, console logging every "value" along the way.
 
 Now that you're getting the hang of modules, you should be aware of "circular dependencies". It's possible for two files to require each other
 
