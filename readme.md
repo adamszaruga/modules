@@ -12,8 +12,8 @@ var myModule = require('./modules/addNumbers.js');
 
 Let's try some exercises to get us comfortable with require() statements. Each exercise below has a corresponding folder in this repository.
 
-1) Write an run a program that requires 3 files that execute a console.log() statement
-	- This should prove that those files get run
+1) Write an run a program that requires all 3 files in this folder. When you run your program, you should see 3 separate strings logged to the console.
+	- This should prove that your require() statments will execute the code within each file, one by one.
 2) Require 3 files that export different things. Console log them to see what the values are
 3) Require a file that exports an array. Loop through the array and log the elements.
 4) Require a file that exports a add function. Use that function to add the first two program arguments
