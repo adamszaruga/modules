@@ -1,6 +1,6 @@
 # Modules in NodeJS
 
-### Require Statements
+## Require Statements
 
 When you're coding a website and you want to use someone else's library of code, you need to use a `<script src="path/to/library"></script>` tag. However, in NodeJS programs we don't have access to a HTML file, so `<script>` tags aren't an option!
 
@@ -10,7 +10,7 @@ That's where `require('path/to/library')` statements come in. They essentially d
 var myModule = require('./modules/addNumbers.js');
 ```
 
-Let's try some exercises to get us comfortable with require() statements:
+Let's try some exercises to get us comfortable with require() statements. Each exercise below has a corresponding folder in this repository.
 
 1) Write an run a program that requires 3 files that execute a console.log() statement
 	- This should prove that those files get run
@@ -21,9 +21,13 @@ Let's try some exercises to get us comfortable with require() statements:
 
 See, modules aren't really that complicated! When a module is required, it will run its code and return some value. It's up to you what to do with that module.
 
-I admit, those modules you were requiring are a bit silly, so let's use require statements to use some of Node's built in modules. You'll notice that you don't need to provide a full file path to these modules - you just need to pass in the name of the module!
+## Node's built in modules
 
+I admit, those first exercises were a bit silly, so let's use require statements to utilize some of Node's built in modules. You'll notice that you don't need to provide a full file path to these modules - you just need to pass in the name of the module!
+```
 var fs = require('fs');
+```
+Try the exercises below. (These exercises don't have corresponding folders in this repository)
 
 1) Write a program that uses the 'os' module to console log the amount of free memory on your computer
 https://www.w3schools.com/nodejs/ref_os.asp
@@ -33,13 +37,22 @@ https://www.w3schools.com/nodejs/ref_dns.asp
 https://www.w3schools.com/nodejs/ref_timers.asp
 
 
+## Writing your own modules
+
 If you want to write your own module, all you need to do is write an "export" line at the bottom of your file:
 
+```
+// file1.js
 module.exports = 3;
 
+// file2.js
 var variable = "hi";
+variable = "hi".repeat(10);
+console.log("You can write whatever code you want in a module!");
+console.log("Just make sure to export something at the bottom of the file");
 module.exports = variable;
 
+// file3.js
 module.exports = {
 	foo: "bar",
 	otherFoo: "otherBar"
@@ -48,17 +61,19 @@ module.exports = {
 module.exports = function() {
 	return "someValue"
 }
+```
+You can have your module export any type of JavaScript value! `module.exports` behaves similarly to `return` statements.
 
-When you (or someone else) require a module, the value that gets returned is what you 
+Here's another way to think about it. The value on the right hand side of `module.exports =` gets passed to the variable on the left hand side of `= require('./some/file')`
 
-Here's another way to think about it. The value on the right hand side of "module.exports =" gets passed to the variable on the left hand side of "= require('./some/file')"
-
-foo.js
+```
+// foo.js
 module.exports = "this is a value";
 
-bar.js
+// bar.js
 var foo = require('./foo.js');
 console.log(foo); // "this is a value"
+```
 
 1) Write a file that exports the number three. Write a file that exports the number five. Write a program that requires those files and console logs the sum of three and five
 2) Write a file that exports the string 'Hello'. Write another file that requires the 'Hello' file and exports 'Hello World'. Write a third file that requires the previous file and exports 'Hello World!'
