@@ -116,10 +116,10 @@ Node does its best to handle this situation. Let's look at what happens when you
 3) Since file2.js hasn't been run yet, Node runs file2.js 
 4) Node sees the require() statement on line 1 of file2.js, and checks to see if file1.js has been run yet
 5) Since file1.js is currently running, Node assumes file1's export has been cached and tries to retrieve it
-6) file2.js continues running, exporting "BAR" at the end
-7) file1.js resumes running, exporting "FOO" at the end
+6) file2.js continues running, console logging the value it required and exporting "BAR" at the end
+7) file1.js resumes running, console logging the value it required and exporting "FOO" at the end
 
-Node does an ok job of handling this situation - instead of executing these files over and over in an infinite loop, it first checks to see if a file has been executed yet in the currently running process. Instead of rerunning a file, it'll grab its exported value from a cache. Unfortunately in step 5 of the scenario above, file1 hasn't exported anything to the cache yet, so that require() statement breaks and instead returns an empty object {}
+Node does an ok job of handling this situation - instead of executing these files over and over in an infinite loop, it first checks to see if a file has been executed yet in the currently running process. Instead of rerunning a file, it'll grab its exported value from a cache. Unfortunately in step 5 of the scenario above, file1 hasn't exported anything to the cache yet! The require() statement will return {} instead of "FOO" as a failsafe.
 
 So, instead of logging what we expected:
 ```
@@ -135,7 +135,8 @@ The value I pulled from file2.js is BAR
 
 
 
-1) The example above is a circular dependency with two files `file1.js -> file2.js -> file1.js`. Try to code a circular dependency with three files (with the same console.logs as above) and see what gets logged to the screen. `file1.js -> file2.js -> file3.js -> file1.js`
+1) The example above is a circular dependency with two files `file1.js -> file2.js -> file1.js`. Try to code a circular dependency with three files (with the same console.logs as above) and see what gets logged to the screen. 
+`file1.js -> file2.js -> file3.js -> file1.js`
 
 
 ## CHALLENGE PROBLEM:
