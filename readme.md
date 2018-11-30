@@ -100,15 +100,42 @@ Now that you're getting the hang of modules, you should be aware of "circular de
 
 ```
 // file1.js
-var foo = require('./file2.js);
+var file2 = require('./file2.js);
+console.log("The value I pulled from file2.js is " + file2);
+module.exports = "FOO";
 
 // file2.js
-var foo = require('./file1.js);
+var file1 = require('./file1.js);
+console.log("The value I pulled from file1.js is " + file1);
+module.exports = "BAR";
 ```
 
-Node doesn't know how to handle this scenario! (When you run file1.js, the require statement will cause file2.js to run, which will cause file1.js to run again, which will cause file2.js to run again, etc...) This is called a circular dependency.  
+Node does its best to handle this situation. Let's look at what happens when you try to run file1.js in the example above: 
+1) Code execution begins in file1.js
+2) Node sees the require() statement on line 1, and checks to see if file2.js has been run yet
+3) Since file2.js hasn't been run yet, Node runs file2.js 
+4) Node sees the require() statement on line 1 of file2.js, and checks to see if file1.js has been run yet
+5) Since file1.js is currently running, Node assumes file1's export has been cached and tries to retrieve it
+6) file2.js continues running, exporting "BAR" at the end
+7) file1.js resumes running, exporting "FOO" at the end
 
-1) Write a file called one.js that requires two.js. Write a file called two.js that requires three.js. Write a file called three.js that requires one.js. Try to run one.js and see what happens!
+Node does an ok job of handling this situation - instead of executing these files over and over in an infinite loop, it first checks to see if a file has been executed yet in the currently running process. Instead of rerunning a file, it'll grab its exported value from a cache. Unfortunately in step 5 of the scenario above, file1 hasn't exported anything to the cache yet, so that require() statement breaks and instead returns an empty object {}
+
+So, instead of logging what we expected:
+```
+The value I pulled from file1.js is FOO
+The value I pulled from file2.js is BAR
+```
+
+The following gets logged instead:
+```
+The value I pulled from file1.js is [object Object]
+The value I pulled from file2.js is BAR
+```
+
+
+
+1) The example above is a circular dependency with two files `file1.js -> file2.js -> file1.js`. Try to code a circular dependency with three files (with the same console.logs as above) and see what gets logged to the screen. `file1.js -> file2.js -> file3.js -> file1.js`
 
 
 ## CHALLENGE PROBLEM:
